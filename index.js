@@ -1,7 +1,9 @@
-const extend = require('extend');
+'use strict';
+
+var extend = require('extend');
 
 function isType(s, typeString) {
-    return {}.toString.call(s) === `[object ${typeString}]`;
+    return {}.toString.call(s) === '[object ' + typeString + ']';
 }
 
 function isObject(s) {
@@ -9,7 +11,7 @@ function isObject(s) {
 }
 
 
-const DEFAULT_ENV_OPTIONS = {
+var DEFAULT_ENV_OPTIONS = {
     'targets': {
         chrome: 45,
         firefox: 52,
@@ -28,7 +30,7 @@ function generateENVOptions(options) {
 }
 
 module.export = function (context, options) {
-    let envOptions = (options && isObject(options.env)) ? options.env :
+    var envOptions = (options && isObject(options.env)) ? options.env :
         generateENVOptions(options.env);
 
     return {
