@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var extend = require('extend');
 var ENV = process.env.BABEL_ENV || process.env.NODE_ENV;
