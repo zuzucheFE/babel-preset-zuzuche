@@ -1,0 +1,17 @@
+sudo: false
+
+language: node_js
+
+os:
+ - linux
+ - osx
+
+node_js:
+  - "8"
+  - "6"
+
+branches:
+  only:
+    - master
+
+script: npm run lint
