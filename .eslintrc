@@ -1,0 +1,36 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "node": true,
+        "amd": false,
+        "mocha": false,
+        "jasmine": false
+    },
+
+    "parserOptions": {
+        "ecmaVersion": 5,
+        "sourceType": "script"
+    },
+
+    "rules": {
+        // 末尾逗号: [错误级别， 禁止出现末尾逗号]
+        "comma-dangle": ["error", "never"],
+
+        // 出现未使用过的变量: [错误级别, {vars: 检测所有变量, args: 最后一个参数必须使用, ignoreRestSiblings: 使 rest 属性的兄弟属性被忽略}]
+        "no-unused-vars": ["error", {
+            "vars": "all",
+            "args": "after-used",
+            "ignoreRestSiblings": true
+        }],
+
+        // 要求 require() 出现在顶层模块作用域中: [关闭]
+        "global-require": "off",
+
+        // 要求使用 let 或 const 而不是 var: [关闭]
+        "no-var": "off",
+
+        // 全局作用域下有一个严格模式指令: 开启
+        "strict": ["error", "global"]
+    }
+}
