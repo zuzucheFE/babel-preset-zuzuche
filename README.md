@@ -81,7 +81,7 @@ require("babel-core").transform("code", {
 ```json
 {
   "presets": [["zuzuche", {
-    "targets": ['chrome >= 45', 'firefox >= 52', 'safari >= 8', 'ie >= 9', 'edge >= 12']
+    "targets": ["chrome >= 45", "firefox >= 52", "safari >= 8", "ie >= 9", "edge >= 12"]
   }]]
 }
 ```
@@ -92,7 +92,7 @@ require("babel-core").transform("code", {
 ```json
 {
   "presets": [["zuzuche", {
-    "targets": ['iOS >= 9', 'Android >= 4', 'last 2 ChromeAndroid versions']
+    "targets": ["iOS >= 9", "Android >= 4", "last 2 ChromeAndroid versions"]
   }]]
 }
 ```
