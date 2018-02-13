@@ -1,8 +1,7 @@
 "use strict";
 
+var path = require('path');
 var extend = require('extend');
-var ENV = process.env.BABEL_ENV || process.env.NODE_ENV;
-
 var obj = {};
 function isType(s, typeString) {
     return obj.toString.call(s) === '[object ' + typeString + ']';
@@ -10,9 +9,6 @@ function isType(s, typeString) {
 
 function isObject(s) {
     return isType(s, 'Object');
-}
-function isUndefined(s) {
-    return isType(s, 'Undefined');
 }
 
 
@@ -35,10 +31,13 @@ var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
     'helpers': false,
     'polyfill': true,
     'regenerator': true,
-    'moduleName': '@babel/runtime'
+    'moduleName': path.dirname(require.resolve('@babel/runtime/package.json'))
 };
 
-module.export = function (context, options) {
+module.exports = function (context, options) {
+    var ENV = process.env.BABEL_ENV || process.env.NODE_ENV;
+    var isEnvDevelopment = ENV === 'development';
+
     var envOptions = (options && isObject(options.env)) ?
         extend(true, {}, DEFAULT_ENV_OPTIONS, options.env) :
         DEFAULT_ENV_OPTIONS;
@@ -47,22 +46,19 @@ module.export = function (context, options) {
         extend(true, {}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options.transformRuntime) :
         DEFAULT_TRANSFORM_RUNTIME_OPTIONS;
 
-    var config = {
-        cacheDirectory: isUndefined(options.cacheDirectory) ? true : options.cacheDirectory,
+    return {
         presets: [
             [require.resolve('@babel/preset-env'), envOptions],
-            require.resolve('@babel/preset-react'),
+            require.resolve('@babel/preset-react', {
+                development: isEnvDevelopment
+            }),
             require.resolve('@babel/preset-stage-0')
         ],
         plugins: [
             require.resolve('@babel/plugin-syntax-dynamic-import'), // Allow parsing of import()
             [require.resolve('@babel/plugin-transform-runtime'), transformRuntimeOptions],
+            require.resolve('@babel/plugin-proposal-class-properties'),
             require.resolve('babel-plugin-transform-decorators-legacy')
         ]
     };
-    if (ENV === 'development' && process.env.DEVELOPMENT_ENV === 'hmr') {
-        config.plugins.unshift(require.resolve('react-hot-loader/babel'));
-    }
-
-    return config;
 };
