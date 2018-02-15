@@ -57,7 +57,6 @@ module.exports = function (context, options) {
         plugins: [
             require.resolve('@babel/plugin-syntax-dynamic-import'), // Allow parsing of import()
             [require.resolve('@babel/plugin-transform-runtime'), transformRuntimeOptions],
-            require.resolve('@babel/plugin-proposal-class-properties'),
             require.resolve('babel-plugin-transform-decorators-legacy')
         ]
     };
