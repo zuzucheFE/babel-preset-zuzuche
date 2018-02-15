@@ -14,7 +14,7 @@
  - [@babel/plugin-syntax-dynamic-import](https://www.npmjs.com/package/@babel/plugin-syntax-dynamic-import)
  - [@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
  - [babel-plugin-transform-decorators-legacy](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy)
- - [react-hot-loader/babel](https://www.npmjs.com/package/react-hot-loader) (for `development` and `HMR` 模式)
+
 
 
 
