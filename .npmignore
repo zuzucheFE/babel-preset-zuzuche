@@ -9,3 +9,4 @@ node_modules/
 .gitignore
 .npmrc
 *.yml
+package-lock.json
