@@ -10,7 +10,7 @@ function isObject(s) {
     return isType(s, 'Object');
 }
 
-const assign = Object.assign;
+var assign = Object.assign;
 
 var DEFAULT_ENV_OPTIONS = {
     'targets': {
