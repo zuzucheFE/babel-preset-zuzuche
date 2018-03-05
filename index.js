@@ -1,7 +1,6 @@
 "use strict";
 
 var path = require('path');
-var extend = require('extend');
 var obj = {};
 function isType(s, typeString) {
     return obj.toString.call(s) === '[object ' + typeString + ']';
@@ -11,16 +10,15 @@ function isObject(s) {
     return isType(s, 'Object');
 }
 
+const assign = Object.assign;
 
 var DEFAULT_ENV_OPTIONS = {
     'targets': {
-        chrome: 45,
-        firefox: 52,
-        safari: 8,
-        ios: 9,
-        android: 4,
-        ie: 9,
-        edge: 12
+        browsers: [
+            'Chrome >= 45', 'last 2 Firefox versions',
+            'ie >= 9', 'Edge >= 12',
+            'iOS >= 9', 'Android >= 4', 'last 2 ChromeAndroid versions'
+        ]
     },
     'useBuiltIns': false,
     'modules': false,
@@ -39,12 +37,12 @@ module.exports = function (context, options) {
     var isEnvDevelopment = ENV === 'development';
 
     var envOptions = (options && isObject(options.env)) ?
-        extend(true, {}, DEFAULT_ENV_OPTIONS, options.env) :
-        DEFAULT_ENV_OPTIONS;
+        assign({}, DEFAULT_ENV_OPTIONS, options.env) :
+        assign({}, DEFAULT_ENV_OPTIONS);
 
     var transformRuntimeOptions = (options && isObject(options.transformRuntime)) ?
-        extend(true, {}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options.transformRuntime) :
-        DEFAULT_TRANSFORM_RUNTIME_OPTIONS;
+        assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options.transformRuntime) :
+        assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS);
 
     return {
         presets: [
