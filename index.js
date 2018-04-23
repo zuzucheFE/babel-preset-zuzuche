@@ -50,7 +50,9 @@ module.exports = function (context, options) {
             require.resolve('@babel/preset-react', {
                 development: isEnvDevelopment
             }),
-            require.resolve('@babel/preset-stage-0')
+            [require.resolve('@babel/preset-stage-0'), {
+                decoratorsLegacy: true
+            }]
         ],
         plugins: [
             require.resolve('@babel/plugin-syntax-dynamic-import'), // Allow parsing of import()
