@@ -13,7 +13,6 @@
  - [@babel/preset-stage-0](https://www.npmjs.com/package/@babel/preset-stage-0)
  - [@babel/plugin-syntax-dynamic-import](https://www.npmjs.com/package/@babel/plugin-syntax-dynamic-import)
  - [@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
- - [babel-plugin-transform-decorators-legacy](https://www.npmjs.com/package/babel-plugin-transform-decorators-legacy)
 
 
 
