@@ -1,6 +1,6 @@
 {
     "name": "babel-preset-zuzuche",
-    "version": "1.1.9",
+    "version": "1.1.10",
     "description": "租租车javascript babel预设转换器",
     "scripts": {
         "lint": "eslint ./index.js"
@@ -27,15 +27,15 @@
         "email": "liangjingxian@zuzuche.com"
     },
     "dependencies": {
-        "@babel/core": "^7.0.0-beta.47",
-        "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.47",
-        "@babel/plugin-transform-runtime": "^7.0.0-beta.47",
-        "@babel/preset-env": "^7.0.0-beta.47",
-        "@babel/preset-react": "^7.0.0-beta.47",
-        "@babel/preset-stage-0": "^7.0.0-beta.47",
-        "@babel/runtime": "^7.0.0-beta.47"
+        "@babel/core": "7.0.0-beta.53",
+        "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.53",
+        "@babel/plugin-transform-runtime": "7.0.0-beta.53",
+        "@babel/preset-env": "7.0.0-beta.53",
+        "@babel/preset-react": "7.0.0-beta.53",
+        "@babel/preset-stage-0": "7.0.0-beta.53",
+        "@babel/runtime": "7.0.0-beta.53"
     },
     "devDependencies": {
-        "eslint": "^4.19.1"
+        "eslint": "^5.1.0"
     }
 }
