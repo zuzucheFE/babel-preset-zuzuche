@@ -9,9 +9,11 @@
 目前包含的plugins/presets:
 
  - [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
+ - [@babel/preset-flow](https://www.npmjs.com/package/@babel/preset-flow)
  - [@babel/preset-react](https://www.npmjs.com/package/@babel/preset-react)
- - [@babel/preset-stage-0](https://www.npmjs.com/package/@babel/preset-stage-0)
  - [@babel/plugin-syntax-dynamic-import](https://www.npmjs.com/package/@babel/plugin-syntax-dynamic-import)
+ - [@babel/plugin-proposal-class-properties](https://www.npmjs.com/package/@babel/plugin-proposal-class-properties)
+ - [@babel/plugin-proposal-object-rest-spread](https://www.npmjs.com/package/@babel/plugin-proposal-object-rest-spread)
  - [@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
 
 
