@@ -35,7 +35,8 @@ var DEFAULT_ENV_OPTIONS = {
     ignoreBrowserslistConfig: true,
     useBuiltIns: false,
     modules: false,
-    debug: false
+    debug: false,
+    exclude: ['transform-typeof-symbol']
 };
 
 var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
@@ -43,6 +44,10 @@ var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
     helpers: true,
     regenerator: true,
     absoluteRuntime: true
+};
+
+var DEFAULT_CLASS_PROPERTIES = {
+    loose: true
 };
 
 module.exports = function (context, options) {
@@ -83,9 +88,15 @@ module.exports = function (context, options) {
         );
     }
 
+    var classPropertiesOptions = (options && isObject(options['class-properties'])) ?
+        assign({}, DEFAULT_CLASS_PROPERTIES, options['class-properties']) :
+        assign({}, DEFAULT_CLASS_PROPERTIES);
+
     var plugins = [
         // Adds syntax support for import()
         require('@babel/plugin-syntax-dynamic-import').default,
+        [require('@babel/plugin-proposal-class-properties').default, classPropertiesOptions],
+        require('@babel/plugin-proposal-object-rest-spread').default,
         [require('@babel/plugin-transform-runtime').default, transformRuntimeOptions]
     ];
 
