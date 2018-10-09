@@ -97,3 +97,22 @@ require("babel-core").transform("code", {
   }]]
 }
 ```
+
+
+### 自定义 babel 配置
+
+为了提供便利性，内置了 `presets/plugins` 的默认配置，你可以通过 `.babelrc` 文件进行修改
+
+```json
+{
+  "presets": [
+    ["zuzuche", {
+        "env": {},
+        "react": {},
+        "flow": Boolean,
+        "transform-runtime": {},
+        "class-properties": {}
+    }]
+  ]
+}
+```
