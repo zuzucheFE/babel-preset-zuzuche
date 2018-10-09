@@ -1,6 +1,6 @@
 {
     "name": "babel-preset-zuzuche",
-    "version": "2.0.0-beta.4",
+    "version": "2.0.0",
     "description": "租租车javascript babel预设转换器",
     "scripts": {
         "lint": "eslint ./index.js"
