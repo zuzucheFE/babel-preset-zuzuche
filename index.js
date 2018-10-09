@@ -46,8 +46,12 @@ var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
     absoluteRuntime: true
 };
 
-var DEFAULT_CLASS_PROPERTIES = {
+var DEFAULT_CLASS_PROPERTIES_OPTIONS = {
     loose: true
+};
+
+var DEFAULT_REACT_OPTIONS = {
+    useBuiltIns: true
 };
 
 module.exports = function (context, options) {
@@ -60,11 +64,14 @@ module.exports = function (context, options) {
         assign({}, DEFAULT_ENV_OPTIONS, options.env) :
         assign({}, DEFAULT_ENV_OPTIONS);
 
+    var reactOptions = (options && isObject(options.react)) ?
+        assign({}, DEFAULT_REACT_OPTIONS, options.react) :
+        assign({}, DEFAULT_REACT_OPTIONS);
+    reactOptions.development = isEnvDevelopment;
+
     var presets = [
         [require('@babel/preset-env').default, envOptions],
-        [require('@babel/preset-react').default, {
-            development: isEnvDevelopment
-        }]
+        [require('@babel/preset-react').default, reactOptions]
     ];
 
     var isFlowEnabled = validateBoolOption('flow', options.flow, true);
@@ -75,8 +82,8 @@ module.exports = function (context, options) {
 
     // ====================
     // plugins config
-    var transformRuntimeOptions = (options && isObject(options.transformRuntime)) ?
-        assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options.transformRuntime) :
+    var transformRuntimeOptions = (options && isObject(options['transform-runtime'])) ?
+        assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options['transform-runtime']) :
         assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS);
 
     if (
@@ -89,8 +96,8 @@ module.exports = function (context, options) {
     }
 
     var classPropertiesOptions = (options && isObject(options['class-properties'])) ?
-        assign({}, DEFAULT_CLASS_PROPERTIES, options['class-properties']) :
-        assign({}, DEFAULT_CLASS_PROPERTIES);
+        assign({}, DEFAULT_CLASS_PROPERTIES_OPTIONS, options['class-properties']) :
+        assign({}, DEFAULT_CLASS_PROPERTIES_OPTIONS);
 
     var plugins = [
         // Adds syntax support for import()
