@@ -9,6 +9,18 @@ function isType(s, typeString) {
 function isObject(s) {
     return isType(s, 'Object');
 }
+function isNumber(s) {
+    return isType(s, 'Number');
+}
+function isString(s) {
+    return isType(s, 'String');
+}
+function isBoolean(s) {
+    return isType(s, 'Boolean');
+}
+function toInt(s) {
+    return parseInt(s, 10) || 0;
+}
 
 function validateBoolOption(name, value, defaultValue) {
     if (typeof value === 'undefined') {
@@ -43,6 +55,7 @@ var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
     corejs: false,
     helpers: true,
     regenerator: true,
+    useESModules: true,
     absoluteRuntime: true
 };
 
@@ -86,12 +99,26 @@ module.exports = function (context, options) {
         assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options['transform-runtime']) :
         assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS);
 
+    var corejsVersion = transformRuntimeOptions.corejs;
     if (
-        typeof transformRuntimeOptions.useAbsoluteRuntime === 'boolean' &&
-        transformRuntimeOptions.useAbsoluteRuntime === true
+        corejsVersion !== false &&
+        (!isNumber(corejsVersion) || corejsVersion !== 2) &&
+        (!isString(corejsVersion) || corejsVersion !== '2')
     ) {
-        transformRuntimeOptions.useAbsoluteRuntime = path.dirname(
-            require.resolve('@babel/runtime/package.json')
+        throw new Error(
+            "The 'corejs' option must be undefined, false, 2 or '2', " +
+            "but got " + JSON.stringify(corejsVersion) + "."
+        );
+    }
+
+    if (
+        isBoolean(transformRuntimeOptions.absoluteRuntime) &&
+        transformRuntimeOptions.absoluteRuntime === true
+    ) {
+        transformRuntimeOptions.absoluteRuntime = path.dirname(
+            require.resolve(
+                '@babel/runtime' + (toInt(corejsVersion) === 2 ? '-corejs2' : '') + '/package.json'
+            )
         );
     }
 
