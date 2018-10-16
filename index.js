@@ -52,7 +52,7 @@ var DEFAULT_ENV_OPTIONS = {
 };
 
 var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
-    corejs: false,
+    corejs: '2',
     helpers: true,
     regenerator: true,
     useESModules: true,
@@ -127,7 +127,6 @@ module.exports = function (context, options) {
         assign({}, DEFAULT_CLASS_PROPERTIES_OPTIONS);
 
     var plugins = [
-        // Adds syntax support for import()
         require('@babel/plugin-syntax-dynamic-import').default,
         [require('@babel/plugin-proposal-class-properties').default, classPropertiesOptions],
         require('@babel/plugin-proposal-object-rest-spread').default,
