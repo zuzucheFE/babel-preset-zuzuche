@@ -1,6 +1,5 @@
 'use strict';
 
-var path = require('path');
 var obj = {};
 function isType(s, typeString) {
     return obj.toString.call(s) === '[object ' + typeString + ']';
@@ -8,18 +7,6 @@ function isType(s, typeString) {
 
 function isObject(s) {
     return isType(s, 'Object');
-}
-function isNumber(s) {
-    return isType(s, 'Number');
-}
-function isString(s) {
-    return isType(s, 'String');
-}
-function isBoolean(s) {
-    return isType(s, 'Boolean');
-}
-function toInt(s) {
-    return parseInt(s, 10) || 0;
 }
 
 var assign = Object.assign;
