@@ -40,6 +40,7 @@ var DEFAULT_ENV_OPTIONS = {
 
 var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
     corejs: '3',
+    version: require('@babel/runtime/package.json').version,
     helpers: true,
     regenerator: true,
     useESModules: true,
