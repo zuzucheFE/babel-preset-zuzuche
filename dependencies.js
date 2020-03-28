@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 var obj = {};
 function isType(s, typeString) {
     return obj.toString.call(s) === '[object ' + typeString + ']';
@@ -27,27 +29,12 @@ var DEFAULT_ENV_OPTIONS = {
 };
 
 var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
-    corejs: false,
+    corejs: 3,
+    version: require('@babel/runtime/package.json').version,
     helpers: true,
     regenerator: true,
     useESModules: true,
     absoluteRuntime: true
-};
-
-var DEFAULT_DESTRUCTURING_OPTIONS = {
-    loose: false,
-    selectiveLoose: [
-        'useState',
-        'useEffect',
-        'useContext',
-        'useReducer',
-        'useCallback',
-        'useMemo',
-        'useRef',
-        'useImperativeHandle',
-        'useLayoutEffect',
-        'useDebugValue'
-    ]
 };
 
 module.exports = function (context, options) {
@@ -67,14 +54,14 @@ module.exports = function (context, options) {
         assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options['transform-runtime']) :
         assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS);
 
-    var destructuringOptions = (options && isObject(options['destructuring'])) ?
-        assign({}, DEFAULT_DESTRUCTURING_OPTIONS, options['destructuring']) :
-        assign({}, DEFAULT_DESTRUCTURING_OPTIONS);
+    if (transformRuntimeOptions.absoluteRuntime) {
+        transformRuntimeOptions.absoluteRuntime = path.dirname(
+            require.resolve('@babel/runtime/package.json')
+        );
+    }
 
     var plugins = [
-        [require('@babel/plugin-transform-destructuring').default, destructuringOptions],
-        [require('@babel/plugin-transform-runtime').default, transformRuntimeOptions],
-        require('@babel/plugin-syntax-dynamic-import').default
+        [require('@babel/plugin-transform-runtime').default, transformRuntimeOptions]
     ];
 
     return {

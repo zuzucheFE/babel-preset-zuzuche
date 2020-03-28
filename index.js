@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 var obj = {};
 function isType(s, typeString) {
     return obj.toString.call(s) === '[object ' + typeString + ']';
@@ -39,7 +41,7 @@ var DEFAULT_ENV_OPTIONS = {
 };
 
 var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
-    corejs: '3',
+    corejs: 3,
     version: require('@babel/runtime/package.json').version,
     helpers: true,
     regenerator: true,
@@ -53,22 +55,6 @@ var DEFAULT_CLASS_PROPERTIES_OPTIONS = {
 
 var DEFAULT_REACT_OPTIONS = {
     useBuiltIns: true
-};
-
-var DEFAULT_DESTRUCTURING_OPTIONS = {
-    loose: false,
-    selectiveLoose: [
-        'useState',
-        'useEffect',
-        'useContext',
-        'useReducer',
-        'useCallback',
-        'useMemo',
-        'useRef',
-        'useImperativeHandle',
-        'useLayoutEffect',
-        'useDebugValue'
-    ]
 };
 
 module.exports = function (context, options) {
@@ -91,33 +77,41 @@ module.exports = function (context, options) {
         [require('@babel/preset-react').default, reactOptions]
     ];
 
-    var isFlowEnabled = validateBoolOption('flow', options.flow, true);
+    var isFlowEnabled = validateBoolOption('flow', options.flow, false);
     if (isFlowEnabled) {
         presets.push(require('@babel/preset-flow').default);
     }
 
+    var isTypeScriptEnabled = validateBoolOption('ts', options.ts, false);
+    if (isTypeScriptEnabled) {
+        presets.push(require('@babel/preset-typescript').default);
+    }
 
     // ====================
     // plugins config
     var transformRuntimeOptions = (options && isObject(options['transform-runtime'])) ?
         assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS, options['transform-runtime']) :
         assign({}, DEFAULT_TRANSFORM_RUNTIME_OPTIONS);
+    if (transformRuntimeOptions.absoluteRuntime) {
+        transformRuntimeOptions.absoluteRuntime = path.dirname(
+            require.resolve('@babel/runtime/package.json')
+        );
+    }
 
     var classPropertiesOptions = (options && isObject(options['class-properties'])) ?
         assign({}, DEFAULT_CLASS_PROPERTIES_OPTIONS, options['class-properties']) :
         assign({}, DEFAULT_CLASS_PROPERTIES_OPTIONS);
 
-    var destructuringOptions = (options && isObject(options['destructuring'])) ?
-        assign({}, DEFAULT_DESTRUCTURING_OPTIONS, options['destructuring']) :
-        assign({}, DEFAULT_DESTRUCTURING_OPTIONS);
-
     var plugins = [
-        [require('@babel/plugin-transform-destructuring').default, destructuringOptions],
-        require('@babel/plugin-syntax-dynamic-import').default,
         [require('@babel/plugin-proposal-class-properties').default, classPropertiesOptions],
-        require('@babel/plugin-proposal-object-rest-spread').default,
-        [require('@babel/plugin-transform-runtime').default, transformRuntimeOptions]
+        [require('@babel/plugin-transform-runtime').default, transformRuntimeOptions],
+        require('@babel/plugin-proposal-optional-chaining').default,
+        require('@babel/plugin-proposal-nullish-coalescing-operator').default
     ];
+
+    if (isTypeScriptEnabled) {
+        plugins.unshift([require('@babel/plugin-proposal-decorators').default, false]);
+    }
 
     return {
         presets: presets,
