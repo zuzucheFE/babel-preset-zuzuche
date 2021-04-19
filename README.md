@@ -1,7 +1,7 @@
 # babel-preset-zuzuche
 
 [![npm](https://img.shields.io/npm/v/babel-preset-zuzuche.svg)](https://www.npmjs.com/package/babel-preset-zuzuche)
-[![Travis branch](https://img.shields.io/travis/zuzucheFE/babel-preset-zuzuche/master.svg)](https://travis-ci.org/zuzucheFE/babel-preset-zuzuche)
+[![Travis branch](https://img.shields.io/travis/zuzucheFE/babel-preset-zuzuche/master.svg)](https://travis-ci.com/zuzucheFE/babel-preset-zuzuche)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/kidney/babel-preset-zuzuche/master/LICENSE)
 
 租租车javascript babel预设转换器
