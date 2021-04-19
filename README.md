@@ -11,9 +11,11 @@
  - [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
  - [@babel/preset-flow](https://www.npmjs.com/package/@babel/preset-flow)
  - [@babel/preset-react](https://www.npmjs.com/package/@babel/preset-react)
- - [@babel/plugin-syntax-dynamic-import](https://www.npmjs.com/package/@babel/plugin-syntax-dynamic-import)
+ - [@babel/preset-typescript](https://www.npmjs.com/package/@babel/preset-typescript)
  - [@babel/plugin-proposal-class-properties](https://www.npmjs.com/package/@babel/plugin-proposal-class-properties)
- - [@babel/plugin-proposal-object-rest-spread](https://www.npmjs.com/package/@babel/plugin-proposal-object-rest-spread)
+ - [@babel/plugin-proposal-decorators](https://www.npmjs.com/package/@babel/plugin-proposal-decorators)
+ - [@babel/plugin-proposal-nullish-coalescing-operator](https://www.npmjs.com/package/@babel/plugin-proposal-nullish-coalescing-operator)
+ - [@babel/plugin-proposal-optional-chaining](https://www.npmjs.com/package/@babel/plugin-proposal-optional-chaining)
  - [@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
 
 
