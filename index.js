@@ -26,14 +26,8 @@ function validateBoolOption(name, value, defaultValue) {
 var assign = Object.assign;
 
 var DEFAULT_ENV_OPTIONS = {
-    targets: { // 目标环境
-        browsers: [ // 浏览器
-            'Chrome >= 45', 'last 2 Firefox versions',
-            'ie >= 9', 'Edge >= 12',
-            'iOS >= 9', 'Android >= 4', 'last 2 ChromeAndroid versions'
-        ]
-    },
-    ignoreBrowserslistConfig: true, // 忽略browserslist文件配置
+    targets: {},
+    ignoreBrowserslistConfig: false, // 忽略browserslist文件配置
     useBuiltIns: false, // 怎么运用 polyfill
     modules: false, // 是否转译module syntax，默认是 commonjs
     debug: false, // 是否输出启用的plugins列表
