@@ -43,16 +43,13 @@ var DEFAULT_TRANSFORM_RUNTIME_OPTIONS = {
     absoluteRuntime: true
 };
 
-var DEFAULT_CLASS_PROPERTIES_OPTIONS = {
-    loose: true
-};
-
 var DEFAULT_REACT_OPTIONS = {
     useBuiltIns: true
 };
 
 module.exports = function (context, options) {
     var ENV = process.env.BABEL_ENV || process.env.NODE_ENV;
+    var isEnvProduction = ENV === 'production';
     var isEnvDevelopment = ENV === 'development';
 
     // ====================
@@ -71,14 +68,9 @@ module.exports = function (context, options) {
         [require('@babel/preset-react').default, reactOptions]
     ];
 
-    var isFlowEnabled = validateBoolOption('flow', options.flow, false);
-    if (isFlowEnabled) {
-        presets.push(require('@babel/preset-flow').default);
-    }
-
     var isTypeScriptEnabled = validateBoolOption('ts', options.ts, false);
     if (isTypeScriptEnabled) {
-        presets.push(require('@babel/preset-typescript').default);
+        presets.push([require('@babel/preset-typescript').default]);
     }
 
     // ====================
@@ -93,22 +85,60 @@ module.exports = function (context, options) {
     }
 
     var classPropertiesOptions = (options && isObject(options['class-properties'])) ?
-        assign({}, DEFAULT_CLASS_PROPERTIES_OPTIONS, options['class-properties']) :
-        assign({}, DEFAULT_CLASS_PROPERTIES_OPTIONS);
+        assign({}, options['class-properties']) :
+        { loose: true };
+
+    var privateMethodsOptions = (options && isObject(options['private-methods'])) ?
+        assign({}, options['private-methods']) :
+        { loose: true };
+
+    var privatePropertyInObjectOptions = (options && isObject(options['private-property-in-object'])) ?
+        assign({}, options['private-property-in-object']) :
+        { loose: true };
 
     var plugins = [
         [require('@babel/plugin-proposal-class-properties').default, classPropertiesOptions],
-        [require('@babel/plugin-transform-runtime').default, transformRuntimeOptions],
-        require('@babel/plugin-proposal-optional-chaining').default,
-        require('@babel/plugin-proposal-nullish-coalescing-operator').default
+        [require('@babel/plugin-proposal-private-methods').default, privateMethodsOptions],
+        [require('@babel/plugin-proposal-private-property-in-object').default, privatePropertyInObjectOptions],
+        [require('@babel/plugin-proposal-numeric-separator').default],
+        [require('@babel/plugin-transform-runtime').default, transformRuntimeOptions]
     ];
 
     if (isTypeScriptEnabled) {
         plugins.unshift([require('@babel/plugin-proposal-decorators').default, false]);
     }
 
+    if (isEnvProduction) {
+        plugins.push([
+            // Remove PropTypes from production build
+            require('babel-plugin-transform-react-remove-prop-types').default,
+            {
+                removeImport: true
+            }
+        ]);
+    }
+
+    plugins.push(require('@babel/plugin-proposal-optional-chaining').default);
+    plugins.push(require('@babel/plugin-proposal-nullish-coalescing-operator').default);
+
+    // ====================
+    // overrides config
+    var overrides = [];
+    if (isTypeScriptEnabled) {
+        overrides.push({
+            test: /\.tsx?$/,
+            plugins: [
+                [
+                    require('@babel/plugin-proposal-decorators').default,
+                    { legacy: true }
+                ]
+            ]
+        });
+    }
+
     return {
         presets: presets,
-        plugins: plugins
+        plugins: plugins,
+        overrides: overrides
     };
 };

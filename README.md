@@ -9,14 +9,17 @@
 目前包含的plugins/presets:
 
  - [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
- - [@babel/preset-flow](https://www.npmjs.com/package/@babel/preset-flow)
  - [@babel/preset-react](https://www.npmjs.com/package/@babel/preset-react)
  - [@babel/preset-typescript](https://www.npmjs.com/package/@babel/preset-typescript)
  - [@babel/plugin-proposal-class-properties](https://www.npmjs.com/package/@babel/plugin-proposal-class-properties)
  - [@babel/plugin-proposal-decorators](https://www.npmjs.com/package/@babel/plugin-proposal-decorators)
  - [@babel/plugin-proposal-nullish-coalescing-operator](https://www.npmjs.com/package/@babel/plugin-proposal-nullish-coalescing-operator)
+ - [@babel/plugin-proposal-numeric-separator](https://www.npmjs.com/package/@babel/plugin-proposal-numeric-separator)
  - [@babel/plugin-proposal-optional-chaining](https://www.npmjs.com/package/@babel/plugin-proposal-optional-chaining)
+ - [@babel/plugin-proposal-private-methods](https://www.npmjs.com/package/@babel/plugin-proposal-private-methods)
+ - [@babel/plugin-proposal-private-property-in-object](https://www.npmjs.com/package/@babel/plugin-proposal-private-property-in-object)
  - [@babel/plugin-transform-runtime](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
+ - [babel-plugin-transform-react-remove-prop-types](https://www.npmjs.com/package/babel-plugin-transform-react-remove-prop-types)
 
 
 
@@ -95,7 +98,7 @@ require("babel-core").transform("code", {
 ```json
 {
   "presets": [["zuzuche", {
-    "targets": ["iOS >= 9", "Android >= 4", "last 2 ChromeAndroid versions"]
+    "targets": ["iOS >= 12", "Android >= 6", "last 2 ChromeAndroid versions"]
   }]]
 }
 ```
@@ -111,9 +114,10 @@ require("babel-core").transform("code", {
     ["zuzuche", {
         "env": {},
         "react": {},
-        "flow": Boolean,
         "transform-runtime": {},
-        "class-properties": {}
+        "class-properties": {},
+        "private-methods": {},
+        "private-property-in-object": {}
     }]
   ]
 }

@@ -59,6 +59,7 @@ module.exports = function (context, options) {
     ];
 
     return {
+        sourceType: 'unambiguous',
         presets: presets,
         plugins: plugins
     };
